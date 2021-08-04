@@ -7,7 +7,12 @@
 
             <main>
                 <% if (prods.length > 0) { %>
-                    <div class="grid">
+                    <section>
+                        <h1 class=" category__title m-top-1">
+                            Book store
+                        </h1>
+                        <div class="grid">
+                       
                         <% for (let product of prods) { %>
                             <article class="card product-item">
                                 <header class="card__header">
@@ -32,7 +37,8 @@
                                 </div>
                             </article>
                             <% } %>
-                    </div>
+                        </div>
+                        </section>
                     <% } else { %>
                         <h1>No Products Found!</h1>
                         <% } %>

@@ -6,8 +6,19 @@
     <%- include('../includes/navigation.ejs') %>
 
     <main>
+        <section class="grid">
+            <article class="masthead">
+                <h1 class="tc-sec masthead_text">Welcome to our library</h1>
+                <p class="tc-sec masthead_text">
+                    As franz kafka said: <cite title="Letters to Friends, Family by Franz Kafka">A book must be the axe for the frozen sea within us. That is my belief</cite>
+                </p>
+            </article>
+        </section>
+
         <% if (prods.length > 0) { %>
-            <div class="grid">
+            <section class="">
+                <h1 class="category__title"> New in store </h1>
+                <div class="grid">
                 <% for (let product of prods) { %>
                     <article class="card product-item">
                         <header class="card__header">
@@ -22,12 +33,13 @@
                             <p class="product__description"><%= product.description %></p>
                         </div>
                         <div class="card__actions">
-                                <a href="/products/<%= product._id %>" class="btn">Details</a>
+                                <a href="/products/<%= product._id %>" class="btn tc-main">Details</a>
                             <%- include('../includes/add-to-cart.ejs', {product: product}) %>
                         </div>
                     </article>
-                <% } %>
-            </div>
+                    <% } %>
+                </div>
+                </section>
         <% } else { %>
             <h1>No Products Found!</h1>
         <% } %>

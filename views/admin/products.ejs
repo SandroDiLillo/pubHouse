@@ -7,7 +7,11 @@
 
             <main>
                 <% if (prods.length > 0) { %>
-                    <div class="grid">
+                    <section>
+                        <h1 class=" category__title m-top-1">
+                            Admin products list
+                        </h1>
+                        <div class="grid">
                         <% for (let product of prods) { %>
                             <article class="card product-item">
                                 <header class="card__header">

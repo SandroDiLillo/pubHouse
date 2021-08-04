@@ -1,8 +1,36 @@
+.add-edit-pg {
+    background-image: url('../img/books-1245690_1920.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 90vh;
+    padding: 1rem;
+    margin: 2px;
+  
+}
+.m-top-1 {
+    margin-top: 80px;
+    text-align: center;
+    /* color: #3e2006; */
+    background: rgba(255, 255, 255, 0.068);
+    backdrop-filter: blur( 7.5px );
+}
+
 .product-form {
+    padding: 20px;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    box-shadow: 3px 3px 7px #b8b9be, -3px -3px 7px #fff!important;
     width: 20rem;
     max-width: 90%;
-    margin: auto;
+    margin: auto; 
+    margin-top: 80px;
     display: block;
+    background: rgba( 255, 255, 255, 0.25 );
+    backdrop-filter: blur( 7.5px );
+    -webkit-backdrop-filter: blur( 4.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 .product-item {
@@ -32,5 +60,5 @@
     display: -webkit-box;
     overflow: hidden !important;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 2;
 }
