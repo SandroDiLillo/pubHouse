@@ -4,14 +4,31 @@ const getDb = require('../util/database').getDb;
 const ObjectId = mongodb.ObjectId;
 
 class User {
-  constructor(username, email) {
+  constructor(username, email, cart, id) {
     this.name = username;
     this.email = email;
+    this.cart = cart;
+    this._id = id;
   }
 
   save() {
     const db = getDb();
     return db.collection('users').insertOne(this);
+  }
+
+  addToCart(product) {
+    // const cartProduct = this.cart.items.findIndex(cp => {
+    //   return cp.productId === product._id;
+    // })
+
+    const updatedCart = { items: [{ productId: new ObjectId(product._id), quantity: 1}] }; //inserendo un oggetto nell'array, e usando lo spread operator, prendiamo tutte le proprietà di quel product, usando poi la virgola andiamo a sovrascrivere quella porprietà dopo 
+    const db = getDb();
+    return db
+    .collection('users')
+    .updateOne(
+      { _id: new ObjectId(this._id)  },
+      { $set: {cart: updatedCart} },
+    );
   }
 
   static findById(userId) {

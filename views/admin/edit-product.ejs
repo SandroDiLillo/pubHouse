@@ -12,7 +12,7 @@
                             action="/admin/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>"
                             method="POST">
                             <div class="form-control">
-                                <label for="title">Title</label>
+                                <label for="title">Author</label>
                                 <input type="text" name="title" id="title"
                                     value="<% if (editing) { %><%= product.title %><% } %>">
                             </div>
