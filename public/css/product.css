@@ -53,12 +53,12 @@
 .product__description {
     text-align: center;
     overflow:hidden;
-    line-height: 2rem;
+    line-height: 1.3rem;
     max-height: 8rem;
     -webkit-box-orient: vertical;
     display: block;
     display: -webkit-box;
     overflow: hidden !important;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
 }
