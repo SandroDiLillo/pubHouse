@@ -54,6 +54,7 @@ exports.getCart = (req, res, next) => {
   req.user
     .getCart()
     .then(products => {
+      // va aggiustato qui, perchè se elimino un prodotto avrò ancora in database dell'utente il prodotto anche se lui non lo vede, quindi quandofacciamo partire il get order ogni volta dovremmo controllare gli elementi presneti in database fare la differenza e riportare cio che è presente realmente eliminando dal database ciò che non c'è più
       res.render('shop/cart', {
         path: '/cart',
         pageTitle: 'Your Cart',
@@ -97,7 +98,7 @@ exports.postOrder = (req, res, next) => {
 
 exports.getOrders = (req, res, next) => {
   req.user
-    .getOrders({ include: ['products'] })
+    .getOrders()
     .then(orders => {
       res.render('shop/orders', {
         path: '/orders',
