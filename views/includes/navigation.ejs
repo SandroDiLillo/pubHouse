@@ -10,7 +10,7 @@
                 <a class="<%= path === '/products' ? 'active' : '' %>" href="/products">Book store</a>
             </li>
             <li class="main-header__item underline-cstm">
-                <a class="<%= path === '/authors' ? 'active' : '' %>" href="#">Authors</a>
+                <a class="<%= path === '/authors' ? 'active' : '' %>" href="/authors">Authors</a>
             </li>
             <li class="main-header__item underline-cstm">
                 <a class="<%= path === '/about' ? 'active' : '' %>" href="#">About</a>
@@ -29,6 +29,19 @@
                 <a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">Admin Products
                 </a>
             </li>
+            <li class="main-header__item underline-cstm">
+                <a class="<%= path === '/admin/add-author' ? 'active' : '' %>" href="/admin/add-author">Add Author
+                </a>
+            </li>
+            <li class="main-header__item underline-cstm">
+                <a class="<%= path === '/admin/authors' ? 'active' : '' %>" href="/admin/authors">Admin Authors
+                </a>
+            </li>
+        </ul>
+        <ul class="main-header__item-list">
+            <li class="main-header__item underline-cstm">
+                <a href="/login">Login</a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -42,7 +55,7 @@
                     <a class="<%= path === '/products' ? 'active' : '' %>" href="/products">Book store</a>
                 </li>
                 <li class="mobile-nav__item">
-                    <a class="<%= path === '/authors' ? 'active' : '' %>" href="/orders">Authors</a>
+                    <a class="<%= path === '/authors' ? 'active' : '' %>" href="/authors">Authors</a>
                 </li>
                 <li class="mobile-nav__item">
                     <a class="<%= path === '/about' ? 'active' : '' %>" href="/orders">About</a>
@@ -60,6 +73,19 @@
                 <li class="mobile-nav__item">
                     <a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">Admin Products
                     </a>
+                </li>
+                <li class="mobile-nav__item">
+                    <a class="<%= path === '/admin/add-author' ? 'active' : '' %>" href="/admin/add-author">Add Author
+                    </a>
+                </li>
+                <li class="mobile-nav__item">
+                    <a class="<%= path === '/admin/author' ? 'active' : '' %>" href="/admin/author">Admin Authors
+                    </a>
+                </li>
+            </ul>
+            <ul class="main-header__item-list">
+                <li class="main-header__item">
+                    <a href="/login">Login</a>
                 </li>
             </ul>
 </nav>

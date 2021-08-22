@@ -23,3 +23,10 @@
   margin: 0;
 }
 
+.card__image_cart {
+  width: 80%;
+}
+
+.card__image_cart img {
+  width: 80%;
+}

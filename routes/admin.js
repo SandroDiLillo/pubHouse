@@ -21,4 +21,22 @@ router.post('/edit-product', adminController.postEditProduct);
 
 router.post('/delete-product', adminController.postDeleteProduct);
 
+
+
+
+// /admin/add-author => GET
+router.get('/add-author', adminController.getAddAuthor);
+
+// /admin/authors => GET
+router.get('/authors', adminController.getAuthors);
+
+// /admin/add-author => POST
+router.post('/add-author', adminController.postAddAuthor);
+
+router.get('/edit-author/:authorId', adminController.getEditAuthor);
+
+router.post('/edit-author', adminController.postEditAuthor);
+
+router.post('/delete-author', adminController.postDeleteAuthor);
+
 module.exports = router;

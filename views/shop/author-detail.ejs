@@ -1,0 +1,18 @@
+<%- include('../includes/head.ejs') %>
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main class="centered">
+            <section class="m-top-1">
+                
+                <h1 class="category__title"><%= author.name %></h1>
+                <hr>
+                <div class="image">
+                    <img src="<%= author.imageUrl %>" alt="<%= author.name %>">
+                </div>
+                <p><%= author.description %></p>
+               
+            </section>
+        </main>
+        <%- include('../includes/end.ejs') %>

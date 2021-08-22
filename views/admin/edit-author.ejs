@@ -1,0 +1,39 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+
+            <main class="add-edit-pg">
+                    <section >
+                        <form class="product-form"
+                            action="/admin/<% if (editing) { %>edit-author<% } else { %>add-author<% } %>"
+                            method="POST">
+                            <div class="form-control">
+                                <label for="name">Full name</label>
+                                <input type="text" name="name" id="name"
+                                    value="<% if (editing) { %><%= author.name %><% } %>">
+                            </div>
+                            <div class="form-control">
+                                <label for="imageUrl">Image URL</label>
+                                <input type="text" name="imageUrl" id="imageUrl"
+                                    value="<% if (editing) { %><%= author.imageUrl %><% } %>">
+                            </div>
+                            <div class="form-control">
+                                <label for="description">Description</label>
+                                <textarea name="description" id="description"
+                                    rows="5"><% if (editing) { %><%= author.description %><% } %></textarea>
+                            </div>
+                            <% if (editing) { %>
+                                <input type="hidden" value="<%= author._id %>" name="authorId">
+                                <% } %>
+
+                                    <button class="btn" type="submit">
+                                        <% if (editing) { %>Update Author<% } else { %>Add Author<% } %>
+                                    </button>
+                        </form>
+                    </section>
+            </main>
+            <%- include('../includes/end.ejs') %>

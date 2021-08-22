@@ -1,4 +1,9 @@
 const Product = require('../models/product');
+const Author = require('../models/author');
+
+
+
+
 
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
@@ -77,10 +82,10 @@ exports.postEditProduct = (req, res, next) => {
 
 exports.getProducts = (req, res, next) => {
   Product.find()
-    // .select('title price -_id')//controlliamo qui cosa far vedere e portare 
+    // .select('title price -_id')
     // .populate('userId', 'name')
     .then(products => {
-      console.log(products)
+      console.log(products);
       res.render('admin/products', {
         prods: products,
         pageTitle: 'Admin Products',
@@ -96,6 +101,107 @@ exports.postDeleteProduct = (req, res, next) => {
     .then(() => {
       console.log('DESTROYED PRODUCT');
       res.redirect('/admin/products');
+    })
+    .catch(err => console.log(err));
+};
+
+
+
+
+
+
+
+exports.getAddAuthor = (req, res, next) => {
+  res.render('admin/edit-author', {
+    pageTitle: 'Add Author',
+    path: '/admin/add-author',
+    editing: false
+  });
+};
+
+exports.postAddAuthor = (req, res, next) => {
+  const name = req.body.name;
+  const imageUrl = req.body.imageUrl;
+  const description = req.body.description;
+  const author = new Author({
+    name: name,
+    description: description,
+    imageUrl: imageUrl,
+  });
+  author
+    .save()
+    .then(result => {
+      // console.log(result);
+      console.log('Created Author');
+      res.redirect('/admin/authors');
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+exports.getEditAuthor = (req, res, next) => {
+  const editMode = req.query.edit;
+  if (!editMode) {
+    return res.redirect('/');
+  }
+  const authsId = req.params.authorId;
+  Author.findById(authsId)
+    .then(author => {
+      if (!author) {
+        return res.redirect('/');
+      }
+      res.render('admin/edit-author', {
+        pageTitle: 'Edit Author',
+        path: '/admin/edit-author',
+        editing: editMode,
+        author: author
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+exports.postEditAuthor = (req, res, next) => {
+  const authId = req.body.authorId;
+  const updatedName = req.body.name;
+  const updatedImageUrl = req.body.imageUrl;
+  const updatedDesc = req.body.description;
+
+  Author.findById(authId)
+    .then(author => {
+      author.name = updatedName;
+      author.description = updatedDesc;
+      author.imageUrl = updatedImageUrl;
+      return author.save();
+    })
+    .then(result => {
+      console.log('UPDATED AUTHOR!');
+      res.redirect('/admin/authors');
+    })
+    .catch(err => console.log(err));
+};
+
+exports.getAuthors = (req, res, next) => {
+  Author.find()
+    // .select('title price -_id')
+    // .populate('userId', 'name')
+    .then(authors => {
+      console.log(authors);
+      res.render('admin/authors', {
+        auths: authors,
+        pageTitle: 'Admin Authors',
+        path: '/admin/authors'
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+exports.postDeleteAuthor = (req, res, next) => {
+  const authId = req.body.authorId;
+  Author.findByIdAndRemove(authId)
+    .then(() => {
+      console.log('DESTROYED AUTHOR');
+      res.redirect('/admin/authors');
     })
     .catch(err => console.log(err));
 };
