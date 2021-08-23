@@ -19,6 +19,13 @@ body {
   background-color: var(--base-color);
 }
 
+.m-x {
+  margin-left: 50px !important;
+}
+.m-t {
+  margin-top: 30px !important;
+}
+
 .m-top-1 {
   margin-top: 80px;
   text-align: center;
@@ -164,6 +171,23 @@ form {
 .main-header__item a:active,
 .main-header__item a.active {
   color: var(--accent-color);
+ 
+}
+
+.main-header__item button {
+  background-color: transparent;
+  border: none;
+  text-decoration: none;
+  color: var(--sec-color);
+  font-size: 19px;
+  font-family: 'Gentium Book Basic', serif;
+}
+
+.main-header__item button:hover,
+.main-header__item button:active,
+.main-header__item button.active {
+  color: var(--accent-color);
+  cursor: pointer;
  
 }
 

@@ -9,7 +9,8 @@ exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
     pageTitle: 'Add Product',
     path: '/admin/add-product',
-    editing: false
+    editing: false,
+    isAuthenticated: req.session.isLoggedIn
   });
 };
 
@@ -52,7 +53,8 @@ exports.getEditProduct = (req, res, next) => {
         pageTitle: 'Edit Product',
         path: '/admin/edit-product',
         editing: editMode,
-        product: product
+        product: product,
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch(err => console.log(err));
@@ -89,7 +91,8 @@ exports.getProducts = (req, res, next) => {
       res.render('admin/products', {
         prods: products,
         pageTitle: 'Admin Products',
-        path: '/admin/products'
+        path: '/admin/products',
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch(err => console.log(err));
@@ -115,7 +118,8 @@ exports.getAddAuthor = (req, res, next) => {
   res.render('admin/edit-author', {
     pageTitle: 'Add Author',
     path: '/admin/add-author',
-    editing: false
+    editing: false,
+    isAuthenticated: req.session.isLoggedIn
   });
 };
 
@@ -155,7 +159,8 @@ exports.getEditAuthor = (req, res, next) => {
         pageTitle: 'Edit Author',
         path: '/admin/edit-author',
         editing: editMode,
-        author: author
+        author: author,
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch(err => console.log(err));
@@ -190,7 +195,8 @@ exports.getAuthors = (req, res, next) => {
       res.render('admin/authors', {
         auths: authors,
         pageTitle: 'Admin Authors',
-        path: '/admin/authors'
+        path: '/admin/authors',
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch(err => console.log(err));
