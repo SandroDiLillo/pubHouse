@@ -529,6 +529,25 @@ footer {
 {
   background-color:#ea4c89
 }
+
+.user-message {
+  margin: auto;
+  width: 90%;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 10px;
+  background-color: rgb(117, 126, 230);
+  border: 1px solid rgb(16, 125, 233);
+  color: var(--base-color);
+}
+
+.user-message--error {
+  border-color: rgb(238, 140, 140);
+  color: var(--base-color);
+  background-color: rgb(171, 71, 88);
+}
+
+
 @media (max-width:767px)
 {
   .social-icons li.title
@@ -536,6 +555,9 @@ footer {
     display:block;
     margin-right:0;
     font-weight:600
+  }
+  .user-message {
+    width: 30rem;
   }
 }
 

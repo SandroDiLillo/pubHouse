@@ -6,11 +6,14 @@ const Author = require('../models/author');
 
 
 exports.getAddProduct = (req, res, next) => {
+
+  // if (!req.session.isLoggedIn) {
+  //   return res.redirect('/login')
+  // }
   res.render('admin/edit-product', {
     pageTitle: 'Add Product',
     path: '/admin/add-product',
     editing: false,
-    isAuthenticated: req.session.isLoggedIn
   });
 };
 
@@ -54,7 +57,6 @@ exports.getEditProduct = (req, res, next) => {
         path: '/admin/edit-product',
         editing: editMode,
         product: product,
-        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch(err => console.log(err));
@@ -87,12 +89,11 @@ exports.getProducts = (req, res, next) => {
     // .select('title price -_id')
     // .populate('userId', 'name')
     .then(products => {
-      console.log(products);
+      // console.log(products);
       res.render('admin/products', {
         prods: products,
         pageTitle: 'Admin Products',
         path: '/admin/products',
-        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch(err => console.log(err));
@@ -119,7 +120,6 @@ exports.getAddAuthor = (req, res, next) => {
     pageTitle: 'Add Author',
     path: '/admin/add-author',
     editing: false,
-    isAuthenticated: req.session.isLoggedIn
   });
 };
 
@@ -130,7 +130,7 @@ exports.postAddAuthor = (req, res, next) => {
   const author = new Author({
     name: name,
     description: description,
-    imageUrl: imageUrl,
+    imageUrl: imageUrl
   });
   author
     .save()
@@ -159,8 +159,7 @@ exports.getEditAuthor = (req, res, next) => {
         pageTitle: 'Edit Author',
         path: '/admin/edit-author',
         editing: editMode,
-        author: author,
-        isAuthenticated: req.session.isLoggedIn
+        author: author
       });
     })
     .catch(err => console.log(err));
@@ -195,8 +194,7 @@ exports.getAuthors = (req, res, next) => {
       res.render('admin/authors', {
         auths: authors,
         pageTitle: 'Admin Authors',
-        path: '/admin/authors',
-        isAuthenticated: req.session.isLoggedIn
+        path: '/admin/authors'
       });
     })
     .catch(err => console.log(err));

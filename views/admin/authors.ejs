@@ -31,6 +31,7 @@
                                 <div class="card__actions">
                                     <a href="/admin/edit-author/<%= author._id %>?edit=true" class="btn">Edit</a>
                                     <form action="/admin/delete-author" method="POST">
+                                        <input type="hidden"  name="_csrf" value="<%= csrfToken %>">
                                         <input type="hidden" value="<%= author._id %>" name="authorId">
                                         <button class="btn" type="submit">Delete</button>
                                     </form>
