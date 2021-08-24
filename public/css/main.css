@@ -6,6 +6,7 @@
   --sec-colorNav: #bfbdbd;
   --accent-color: #7C400A;
   --base-color: #fdfdfd;
+  --admin-color: rgb(25, 30, 3); 
 }
 
 * {
@@ -117,31 +118,20 @@ form {
   align-items: center;
   position: fixed;
 }
-/* .main-header::before {
-  content: "";
-  position: absolute;  
-  background-color: var(--base-color);
-  top: 10px;
-  right: 0px;
-  height: 45px;
-  width: 15px; */
-  /* border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px; */
-  /* box-shadow: 0 -10px 0 0 var(--base-color); This is where the magic happens! */
-/* } */
-/* .main-header::after {
-  content: "";
-  position: absolute;
-  left: 3px;  
-  background-color: transparent;
-  height: 45px;
-  width: 98%; */
-  /* border-bottom: 3px solid rgba(128, 128, 128, 0.592);
-  border-top: 3px solid rgba(128, 128, 128, 0.551);
-  border-left: 3px solid rgba(128, 128, 128, 0.551); */
-  /* border-right: transparent;
-  border-radius: 15px;
-} */
+.main-header-admin {
+  width: 100%;
+  height: 3.5rem;
+  z-index: 1000;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.3);
+  background-color: var(--admin-color);
+  /* border: 4px solid var(--accent-color); */ 
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: center ;
+  align-items: center;
+  position: fixed;
+}
+
 .main-header__nav {
   height: 100%;
   display: none;

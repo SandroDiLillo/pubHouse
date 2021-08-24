@@ -4,40 +4,41 @@ const express = require('express');
 
 const adminController = require('../controllers/admin');
 const isAuth = require('../middleware/is-auth');
+const isAdmin = require('../middleware/is-admin');
 
 const router = express.Router();
 
 // /admin/add-product => GET
-router.get('/add-product', isAuth, adminController.getAddProduct);
+router.get('/add-product', isAuth, isAdmin, adminController.getAddProduct);
 
 // /admin/products => GET
-router.get('/products', isAuth, adminController.getProducts);
+router.get('/products', isAuth, isAdmin, adminController.getProducts);
 
 // /admin/add-product => POST
-router.post('/add-product', isAuth, adminController.postAddProduct);
+router.post('/add-product', isAuth, isAdmin, adminController.postAddProduct);
 
-router.get('/edit-product/:productId', isAuth, adminController.getEditProduct);
+router.get('/edit-product/:productId', isAuth, isAdmin, adminController.getEditProduct);
 
-router.post('/edit-product', isAuth, adminController.postEditProduct);
+router.post('/edit-product', isAuth, isAdmin, adminController.postEditProduct);
 
-router.post('/delete-product', isAuth, adminController.postDeleteProduct);
+router.post('/delete-product', isAuth, isAdmin, adminController.postDeleteProduct);
 
 
 
 
 // /admin/add-author => GET
-router.get('/add-author', isAuth, adminController.getAddAuthor);
+router.get('/add-author', isAuth, isAdmin, adminController.getAddAuthor);
 
 // /admin/authors => GET
-router.get('/authors', isAuth, adminController.getAuthors);
+router.get('/authors', isAuth, isAdmin, adminController.getAuthors);
 
 // /admin/add-author => POST
-router.post('/add-author', isAuth, adminController.postAddAuthor);
+router.post('/add-author', isAuth, isAdmin, adminController.postAddAuthor);
 
-router.get('/edit-author/:authorId', isAuth, adminController.getEditAuthor);
+router.get('/edit-author/:authorId', isAuth, isAdmin, adminController.getEditAuthor);
 
-router.post('/edit-author', isAuth, adminController.postEditAuthor);
+router.post('/edit-author', isAuth, isAdmin, adminController.postEditAuthor);
 
-router.post('/delete-author', isAuth, adminController.postDeleteAuthor);
+router.post('/delete-author', isAuth, isAdmin, adminController.postDeleteAuthor);
 
 module.exports = router;

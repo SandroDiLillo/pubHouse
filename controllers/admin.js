@@ -85,7 +85,7 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  Product.find()
+  Product.find() //posso inserire un filtro solo per l'utente che l'ha creato con ({ userId: req.user._id})
     // .select('title price -_id')
     // .populate('userId', 'name')
     .then(products => {
