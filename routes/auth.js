@@ -14,5 +14,13 @@ router.get('/signup', authController.getSignup);
 
 router.post('/signup', authController.postSignup);
 
+router.get('/reset', authController.getReset);
+
+router.post('/reset', authController.postReset);
+
+router.get('/reset/:token', authController.getNewPassword); //nel controller cerco un token e devo metterlo come paramentro qui
+
+router.post('/new-password', authController.postNewPassword); //nel controller cerco un token e devo metterlo come paramentro qui
+
 
 module.exports = router;
