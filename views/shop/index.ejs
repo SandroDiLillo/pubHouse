@@ -7,17 +7,17 @@
 
     <main>
         <section class="grid">
-            <article class="masthead">
-                <h1 class="tc-sec masthead_text">Welcome to our publishing house</h1>
-                <p class="tc-sec masthead_text">
-                    As Franz Kafka said: <cite title="Letters to Friends, Family by Franz Kafka">A book must be the axe for the frozen sea within us. That is my belief</cite>
+            <article class=" <%= isAdmin ? 'masthead-admin' : 'masthead' %>">
+                <h1 class="<%= isAdmin ? 'tc-base bold' : 'tc-sec' %> masthead_text"> <% if (isAdmin) { %> Welcome back my dear Guardian of Culture  <% } else { %> Welcome to our publishing house <% } %></h1>
+                <p class="<%= isAdmin ? 'tc-base bold' : 'tc-sec' %> masthead_text">
+                    <% if (isAdmin) { %> Remember:  <% } else { %> As Franz Kafka said:  <% } %> <cite class="<%= isAdmin ? 'm-x-2' : '' %>" title="<%= isAdmin ? 'Albert Camus, The Myth of Sisyphus and Other Essays' : 'Letters to Friends, Family by Franz Kafka' %> "><% if (isAdmin) { %> Without culture, and the relative freedom it implies, society, even when perfect, is but a jungle. This is why any authentic creation is a gift to the future...  <% } else { %> A book must be the axe for the frozen sea within us. That is my belief <% } %> </cite>
                 </p>
             </article>
         </section>
 
         <% if (prods.length > 0) { %>
             <section class="">
-                <h1 class="category__title"> New in store </h1>
+                <h1 class="<%= isAdmin ? 'category__title_admin' : 'category__title' %> "> New in store </h1>
                 <div class="grid">
                 <% for (let product of prods) { %>
                     <article class="card product-item">

@@ -6,7 +6,7 @@
   --sec-colorNav: #bfbdbd;
   --accent-color: #7C400A;
   --base-color: #fdfdfd;
-  --admin-color: rgb(25, 30, 3); 
+  --admin-color: rgba(0, 0, 0, 0.904); 
 }
 
 * {
@@ -22,6 +22,11 @@ body {
 
 .m-x {
   margin-left: 50px !important;
+}
+.m-x-2 {
+  margin-left: auto !important;
+  margin-right: auto !important;
+ 
 }
 .m-t {
   margin-top: 30px !important;
@@ -47,7 +52,15 @@ body {
 .tc-base {
   color: var(--base-color);
 }
-
+.bold {
+  font-size: 1.2rem !important;
+  text-align: center !important;
+  font-weight: bolder;
+  padding-top: 70px !important;
+  width: 30rem;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.578);
+}
 
 main {
   padding: 1rem;
@@ -94,6 +107,18 @@ form {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+}
+.masthead-admin {
+  height: 100vh;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.285), rgba(255, 255, 255, 0.286)), url('../img/admin-maste.jpg');
+  width: 100%;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  display: flex-column;
+  align-items: center;
+  justify-content: center;
+  
 }
 
 .masthead_text {
@@ -306,6 +331,15 @@ form {
   text-align: center;
   font-size: 24px;
   color: var(--accent-color);
+  padding: 15px;
+  border: 1px solid transparent;
+  border-radius: 15px;
+  box-shadow: inset 2px 2px 5px #b8b9be,inset -3px -3px 7px #fff!important;
+}
+.category__title_admin {
+  text-align: center;
+  font-size: 24px;
+  color: black;
   padding: 15px;
   border: 1px solid transparent;
   border-radius: 15px;
