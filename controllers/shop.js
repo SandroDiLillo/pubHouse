@@ -152,3 +152,11 @@ exports.getOrders = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
+
+
+exports.getAbout = (req, res, next) => {
+  res.render('shop/about', {
+    pageTitle: 'Our publishing house', 
+    path: '/about',
+  })
+};

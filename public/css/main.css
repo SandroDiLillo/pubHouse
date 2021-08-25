@@ -20,6 +20,13 @@ body {
   background-color: var(--base-color);
 }
 
+.footer {
+  position: fixed;
+  
+  bottom: 24px;
+  
+}
+
 .m-x {
   margin-left: 50px !important;
 }
@@ -34,10 +41,37 @@ body {
 
 .m-top-1 {
   margin-top: 80px;
+}
+
+
+.category__title m-top-1 {
+  margin-top: 80px;
   text-align: center;
   /* color: #3e2006; */
   background: rgba(255, 255, 255, 0.068);
   backdrop-filter: blur( 7.5px );
+}
+.category__title_admin m-top-1 {
+  margin-top: 80px;
+  text-align: center;
+  /* color: #3e2006; */
+  background: rgba(255, 255, 255, 0.068);
+  backdrop-filter: blur( 7.5px );
+}
+
+.padding-1 {
+ padding: 1rem;
+}
+.padding-2 {
+ padding: 2rem;
+}
+.padding-3 {
+ padding: 3rem;
+}
+
+.border-box {
+
+  box-sizing: border-box;
 }
 
 .tc-main {
@@ -62,6 +96,9 @@ body {
   background-color: rgba(0, 0, 0, 0.578);
 }
 
+.text-justify {
+  text-align: justify;
+}
 main {
   padding: 1rem;
   margin: auto;
