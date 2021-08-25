@@ -39,6 +39,8 @@ router.post('/signup',
           } 
         })
     }),
+    body('name', 'Please enter a valid name')
+    .isLength( { min: 2 }),
     body('password', 'Please enter a password with only numbers and text and at least 8 character ')
     .isLength({ min: 8})
     .isAlphanumeric(),
