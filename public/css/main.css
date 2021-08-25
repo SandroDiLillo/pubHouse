@@ -7,6 +7,8 @@
   --accent-color: #7C400A;
   --base-color: #fdfdfd;
   --admin-color: rgba(0, 0, 0, 0.904); 
+  --curve: 40;
+  --surface-color: #fff;
 }
 
 * {

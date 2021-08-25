@@ -52,7 +52,6 @@
 
 .product__description {
     text-align: center;
-    overflow:hidden;
     line-height: 1.3rem;
     max-height: 8rem;
     -webkit-box-orient: vertical;
