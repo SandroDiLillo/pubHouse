@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 
 const nodemailer = require('nodemailer');
 const sendGridTransport = require('nodemailer-sendgrid-transport');
+const { validationResult } = require('express-validator/check')
+
 
 const User = require('../models/user');
 
@@ -36,6 +38,16 @@ exports.getLogin = (req, res, next) => {
 exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).render('auth/login', {
+      path: '/login',
+      pageTitle: 'Login',
+      errorMessage: errors.array()[0].msg
+    });
+  }
+
 
   User.findOne({ email: email })
     .then(user => {
@@ -116,15 +128,15 @@ exports.postSignup = (req, res, next) => {
   const email = req.body.email;
   const name = req.body.name;
   const password = req.body.password;
-  const confirmPassword = req.body.confirmPassword;
-
-  User.findOne({ email: email })
-    .then(userDoc => {
-      if (userDoc) {
-        req.flash('errorSingup', 'Email exists already ');
-        return res.redirect('/signup')
-      }
-      return bcrypt
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).render('auth/signup', {
+      path: '/signup',
+      pageTitle: 'Signup',
+      errorMessage: errors.array()[0].msg
+    });
+  }
+       bcrypt
         .hash(password, 12)
         .then(hashedPassword => {
           const user = new User({
@@ -149,10 +161,6 @@ exports.postSignup = (req, res, next) => {
               console.log(err);
             })
         });
-    })
-    .catch(err => {
-      console.log(err)
-    });
 
 };
 

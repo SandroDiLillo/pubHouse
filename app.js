@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session'); //pacchetto della suite di express, ci permette di lavorare con la sessione 
 const MongoDBStore = require('connect-mongodb-session')(session) //il risultato del passaggio dell'oggeto session creato nella riga precedente e passato qui, alla funzione risultante del require di mongo connect, viene memorizzato in mongo db;
-const flash = require('connect-flash');
+const flash = require('connect-flash'); //npm i connect-flash
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
