@@ -35,7 +35,8 @@ exports.getLogin = (req, res, next) => {
     oldInput: {
       email: '',
       password: '',
-    }
+    },
+    validationErrors: []
   });
 };
 
@@ -52,7 +53,8 @@ exports.postLogin = (req, res, next) => {
       oldInput: {
         email: email,
         password: password,
-      }
+      },
+      validationErrors: errors.array()
     });
   }
 
@@ -60,8 +62,17 @@ exports.postLogin = (req, res, next) => {
   User.findOne({ email: email })
     .then(user => {
       if (!user) {
-        req.flash('error', 'Invalid email ');
-        return res.redirect('/login');
+        
+        return res.status(422).render('auth/login', {
+          path: '/login',
+          pageTitle: 'Login',
+          errorMessage: "Invalid mail or password",
+          oldInput: {
+            email: email,
+            password: password,
+          },
+          validationErrors: []
+        });
       } else if (user.email === "sandro.dilillo@gmail.com") {
 
         bcrypt.compare(password, user.password)
@@ -76,8 +87,16 @@ exports.postLogin = (req, res, next) => {
                   res.redirect('/');
                 })
             }
-            req.flash('error', 'Invalid password');
-            res.redirect('/login')
+            return res.status(422).render('auth/login', {
+              path: '/login',
+              pageTitle: 'Login',
+              errorMessage: "Invalid mail or password",
+              oldInput: {
+                email: email,
+                password: password,
+              },
+              validationErrors: []
+            });
           })
           .catch(err => {
             console.log(err)
@@ -94,8 +113,16 @@ exports.postLogin = (req, res, next) => {
                   res.redirect('/');
                 })
             }
-            req.flash('error', 'Invalid password');
-            res.redirect('/login')
+            return res.status(422).render('auth/login', {
+              path: '/login',
+              pageTitle: 'Login',
+              errorMessage: "Invalid mail or password",
+              oldInput: {
+                email: email,
+                password: password,
+              },
+              validationErrors: []
+            });
           })
           .catch(err => {
             console.log(err)

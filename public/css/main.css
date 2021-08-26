@@ -22,6 +22,7 @@ body {
   background-color: var(--base-color);
 }
 
+
 .footer {
   position: fixed;
   
@@ -181,6 +182,7 @@ form {
   justify-content: center ;
   align-items: center;
   position: fixed;
+  border-radius: 7px;
 }
 .main-header-admin {
   width: 100%;
@@ -194,6 +196,8 @@ form {
   justify-content: center ;
   align-items: center;
   position: fixed;
+  border-radius: 7px;
+
 }
 
 .main-header__nav {

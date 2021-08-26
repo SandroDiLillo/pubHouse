@@ -44,7 +44,10 @@ router.post('/signup',
     body('password', 'Please enter a password with only numbers and text and at least 8 character ')
     .isLength({ min: 8})
     .isAlphanumeric(),
-    body('confirmPassword').custom((value, {req}) => {
+    body('confirmPassword')
+    .isLength({ min: 8})
+    .isAlphanumeric()
+    .custom((value, {req}) => {
         if(value !== req.body.password) {
             throw new Error('Password have to match!');
         }
