@@ -1,6 +1,7 @@
 const Product = require('../models/product');
 const Author = require('../models/author');
 
+const { validationResult } = require('express-validator/check')
 
 
 
@@ -14,6 +15,10 @@ exports.getAddProduct = (req, res, next) => {
     pageTitle: 'Add Product',
     path: '/admin/add-product',
     editing: false,
+    hasError: false,
+    errorMessage: '',
+    validationErrors: [],
+    
   });
 };
 
@@ -22,12 +27,31 @@ exports.postAddProduct = (req, res, next) => {
   const imageUrl = req.body.imageUrl;
   const price = req.body.price;
   const description = req.body.description;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).render('admin/edit-product', {
+      pageTitle: 'Add Product',
+      path: '/admin/add-product',
+      editing: true,
+      hasError: true,
+      errorMessage: errors.array()[0].msg,
+      product: {
+        title: title,
+        price: price,
+        description: description,
+        imageUrl: imageUrl,
+      },
+      validationErrors: errors.array()
+    })
+  }
   const product = new Product({
+    
     title: title,
     price: price,
     description: description,
     imageUrl: imageUrl,
-    userId: req.user
+    userId: req.user,
+  
   });
   product
     .save()
@@ -57,6 +81,9 @@ exports.getEditProduct = (req, res, next) => {
         path: '/admin/edit-product',
         editing: editMode,
         product: product,
+        hasError: false,
+        errorMessage: null,
+        validationErrors: []
       });
     })
     .catch(err => console.log(err));
@@ -69,12 +96,35 @@ exports.postEditProduct = (req, res, next) => {
   const updatedImageUrl = req.body.imageUrl;
   const updatedDesc = req.body.description;
 
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).render('admin/edit-product', {
+      pageTitle: 'Edit Product',
+      path: '/admin/edit-product',
+      editing: true,
+      hasError: true,
+      
+      product: {
+        title: updatedTitle,
+        price: updatedPrice,
+        description: updatedDesc,
+        imageUrl: updatedImageUrl,
+        _id: prodId
+      },
+      errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array()
+    })
+  }
+
+
   Product.findById(prodId)
     .then(product => {
       product.title = updatedTitle;
       product.price = updatedPrice;
       product.description = updatedDesc;
       product.imageUrl = updatedImageUrl;
+      
       return product.save();
     })
     .then(result => {
@@ -120,13 +170,37 @@ exports.getAddAuthor = (req, res, next) => {
     pageTitle: 'Add Author',
     path: '/admin/add-author',
     editing: false,
+    hasError: false,
+    errorMessage: '',
+    validationErrors: [],
   });
 };
+
+
+
 
 exports.postAddAuthor = (req, res, next) => {
   const name = req.body.name;
   const imageUrl = req.body.imageUrl;
   const description = req.body.description;
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).render('admin/edit-author', {
+      pageTitle: 'Edit Author',
+      path: '/admin/edit-author',
+      editing: false,
+      hasError: true,
+      errorMessage: errors.array()[0].msg,
+      author: {
+        name: name,
+        description: description,
+        imageUrl: imageUrl,
+      },
+      validationErrors: errors.array()
+    })
+  }
+
   const author = new Author({
     name: name,
     description: description,
@@ -144,12 +218,18 @@ exports.postAddAuthor = (req, res, next) => {
     });
 };
 
+
+
+
 exports.getEditAuthor = (req, res, next) => {
   const editMode = req.query.edit;
   if (!editMode) {
     return res.redirect('/');
   }
   const authsId = req.params.authorId;
+
+
+  
   Author.findById(authsId)
     .then(author => {
       if (!author) {
@@ -159,7 +239,10 @@ exports.getEditAuthor = (req, res, next) => {
         pageTitle: 'Edit Author',
         path: '/admin/edit-author',
         editing: editMode,
-        author: author
+        author: author,
+        hasError: false,
+        errorMessage: '',
+        validationErrors: [],
       });
     })
     .catch(err => console.log(err));
@@ -170,6 +253,24 @@ exports.postEditAuthor = (req, res, next) => {
   const updatedName = req.body.name;
   const updatedImageUrl = req.body.imageUrl;
   const updatedDesc = req.body.description;
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).render('admin/edit-author', {
+      pageTitle: 'Edit Author',
+      path: '/admin/edit-author',
+      editing: true,
+      hasError: true,
+      errorMessage: errors.array()[0].msg,
+      author: {
+        name: updatedName,
+        description: updatedDesc,
+        imageUrl: updatedImageUrl,
+        _id: authId
+      },
+      validationErrors: errors.array()
+    })
+  }
 
   Author.findById(authId)
     .then(author => {

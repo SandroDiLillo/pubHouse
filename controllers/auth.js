@@ -36,7 +36,7 @@ exports.getLogin = (req, res, next) => {
       email: '',
       password: '',
     },
-    validationErrors: []
+    validationErrors: [] //lo passiamo vuoto anche nel get in modo tale che non ci sia errore e contrasto con ciò che cerchiamo nella vista 
   });
 };
 
@@ -45,6 +45,7 @@ exports.postLogin = (req, res, next) => {
   const password = req.body.password;
 
   const errors = validationResult(req);
+  console.log(errors.array());
   if (!errors.isEmpty()) {
     return res.status(422).render('auth/login', {
       path: '/login',

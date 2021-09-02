@@ -1,5 +1,5 @@
 const express = require('express');
-const { check, body } = require('express-validator/check')
+const { check, body } = require('express-validator/check'); // destrutturiamo il validator crecupeando le cose che ci servono 
 const authController = require('../controllers/auth');
 const user = require('../models/user');
 const User = require('../models/user')
@@ -9,7 +9,7 @@ router.get('/login', authController.getLogin);
 
 router.get('/signup', authController.getSignup);
 
-router.post('/login', [
+router.post('/login', [ //inseriamo un middleware per validare la richiesta e capire se l'utente ha inserito una mail
     body('email')
     .isEmail()
     .withMessage('Please enter a valid email')
@@ -17,13 +17,15 @@ router.post('/login', [
         return User.findOne({ email: value })
         .then(user => {
           if (!user) {
-            return Promise.reject('Invalid email');
+            return Promise.reject('Invalid email, please sign up before');
           } 
         })
-    }),
+    })
+    .normalizeEmail({gmail_remove_dots: false}),
     body('password', 'Please enter a password with only numbers and text and at least 8 character ')
-    .isLength({ min: 8})
-    .isAlphanumeric(),
+    .isLength({ min: 8 })
+    .isAlphanumeric()
+    .trim(),
 ], authController.postLogin);
 
 router.post('/signup', 
@@ -38,12 +40,14 @@ router.post('/signup',
             return Promise.reject('Email exists already, please picka  different one ');
           } 
         })
-    }),
+    })
+    .normalizeEmail(),
     body('name', 'Please enter a valid name')
     .isLength( { min: 2 }),
     body('password', 'Please enter a password with only numbers and text and at least 8 character ')
     .isLength({ min: 8})
-    .isAlphanumeric(),
+    .isAlphanumeric()
+    .trim(),
     body('confirmPassword')
     .isLength({ min: 8})
     .isAlphanumeric()
@@ -53,6 +57,7 @@ router.post('/signup',
         }
         return true;
     })
+    .trim(),
 ],
  authController.postSignup);
 

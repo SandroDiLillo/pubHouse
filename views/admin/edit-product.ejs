@@ -6,30 +6,39 @@
     <body>
         <%- include('../includes/navigation.ejs') %>
 
-            <main class="add-edit-pg">
-                    <section >
+        <% if(errorMessage) { %>
+            <div class="admin-message admin-message--error m-top-1">
+                <%= errorMessage %>
+            </div>
+            <% } %>
+            <main class="add-edit-pg ">
+                <section >
                         <form class="product-form"
-                            action="/admin/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>"
+                            action="/admin/<% if (editing || hasError) { %>edit-product<% } else { %>add-product<% } %>"
                             method="POST">
                             <div class="form-control">
                                 <label for="title">Author</label>
-                                <input type="text" name="title" id="title"
-                                    value="<% if (editing) { %><%= product.title %><% } %>">
+                                <input 
+                                class="<%= validationErrors.find(e => e.param === 'title') ? 'invalid' : '' %>"
+                                type="text" 
+                                name="title" 
+                                id="title"
+                                value="<% if (editing || hasError) { %><%= product.title %><% } %>">
                             </div>
                             <div class="form-control">
                                 <label for="imageUrl">Image URL</label>
                                 <input type="text" name="imageUrl" id="imageUrl"
-                                    value="<% if (editing) { %><%= product.imageUrl %><% } %>">
+                                    value="<% if (editing || hasError) { %><%= product.imageUrl %><% } %>">
                             </div>
                             <div class="form-control">
                                 <label for="price">Price</label>
                                 <input type="number" name="price" id="price" step="0.01"
-                                    value="<% if (editing) { %><%= product.price %><% } %>">
+                                    value="<% if (editing || hasError) { %><%= product.price %><% } %>">
                             </div>
                             <div class="form-control">
                                 <label for="description">Description</label>
                                 <textarea name="description" id="description"
-                                    rows="5"><% if (editing) { %><%= product.description %><% } %></textarea>
+                                    rows="5"><% if (editing || hasError) { %><%= product.description %><% } %></textarea>
                             </div>
                             <% if (editing) { %>
                                 <input type="hidden" value="<%= product._id %>" name="productId">
@@ -39,6 +48,7 @@
                                         <% if (editing) { %>Update Product<% } else { %>Add Product<% } %>
                                     </button>
                         </form>
+                        
                     </section>
             </main>
             <%- include('../includes/end.ejs') %>

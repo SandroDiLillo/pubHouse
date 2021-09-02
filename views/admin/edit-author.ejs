@@ -7,31 +7,40 @@
         <%- include('../includes/navigation.ejs') %>
 
             <main class="add-edit-pg">
+                <% if(errorMessage) { %>
+                    <div class="admin-message admin-message--error m-top-1">
+                        <%= errorMessage %>
+                    </div>
+                    <% } %>
                     <section >
                         <form class="product-form"
-                            action="/admin/<% if (editing) { %>edit-author<% } else { %>add-author<% } %>"
+                            action="/admin/<% if (editing || hasError ) { %>edit-author<% } else { %>add-author<% } %>"
                             method="POST">
                             <div class="form-control">
                                 <label for="name">Full name</label>
-                                <input type="text" name="name" id="name"
-                                    value="<% if (editing) { %><%= author.name %><% } %>">
+                                <input 
+                                class=""
+                                type="text" 
+                                name="name" 
+                                id="name"
+                                value="<% if (editing || hasError) { %><%= author.name %><% } %>">
                             </div>
                             <div class="form-control">
                                 <label for="imageUrl">Image URL</label>
                                 <input type="text" name="imageUrl" id="imageUrl"
-                                    value="<% if (editing) { %><%= author.imageUrl %><% } %>">
+                                    value="<% if (editing || hasError) { %><%= author.imageUrl %><% } %>">
                             </div>
                             <div class="form-control">
                                 <label for="description">Description</label>
                                 <textarea name="description" id="description"
-                                    rows="5"><% if (editing) { %><%= author.description %><% } %></textarea>
+                                    rows="5"><% if (editing || hasError) { %><%= author.description %><% } %></textarea>
                             </div>
                             <% if (editing) { %>
                                 <input type="hidden" value="<%= author._id %>" name="authorId">
                                 <% } %>
                                     <input type="hidden"  name="_csrf" value="<%= csrfToken %>">
                                     <button class="btn" type="submit">
-                                        <% if (editing) { %>Update Author<% } else { %>Add Author<% } %>
+                                        <% if (editing || hasError) { %>Update Author<% } else { %>Add Author<% } %>
                                     </button>
                         </form>
                     </section>
