@@ -21,9 +21,9 @@ router.post('/add-product', [
         .isString()
         .isLength({ min: 3 })
         .withMessage('Please enter a valid Author'),
-    body('imageUrl')
-        .isURL()
-        .withMessage('Please enter a url for image'),
+    // body('imageUrl')
+    //     .isURL()
+    //     .withMessage('Please enter a url for image'),
     body('price')
         .isNumeric()
         .withMessage('Please enter a number'),
@@ -43,9 +43,9 @@ router.post('/edit-product', [
         .isString()
         .isLength({ min: 3 })
         .withMessage('Please enter a valid Author'),
-    body('imageUrl')
-        .isURL()
-        .withMessage('Please enter a url for image'),
+    // body('imageUrl')
+    //     .isURL()
+    //     .withMessage('Please enter a url for image'),
     body('price')
         .isNumeric()
         .withMessage('Please enter a number'),
