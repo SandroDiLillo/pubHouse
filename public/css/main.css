@@ -24,8 +24,8 @@ body {
 
 
 .footer {
-  position: fixed;
-  
+  position: relative;
+  top: 20px;
   bottom: 24px;
   
 }
