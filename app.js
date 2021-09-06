@@ -21,7 +21,7 @@ const store = new MongoDBStore({
 });
 const csrfProtection = csrf();
 
-const fileStorage = multer.diskStorage({
+const fileStorage = multer.diskStorage({ //dove e come salviamo i file 
   destination: (req, file, cb) => {
     cb(null, 'images');
   },
@@ -30,7 +30,7 @@ const fileStorage = multer.diskStorage({
   }
 });
 
-const fileFilter = (req, file, cb) => {
+const fileFilter = (req, file, cb) => { // che tipo di file 
   if (
     file.mimetype === 'image/png' ||
     file.mimetype === 'image/jpg' ||
@@ -64,7 +64,8 @@ app.use(session({
    secret: 'dovrebbe essere una lunga stringa', 
    resave: false, 
    saveUninitialized: false, 
-   store: store }));
+   store: store
+   }));
 
 app.use(csrfProtection);
 app.use(flash());

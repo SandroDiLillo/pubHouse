@@ -3,7 +3,7 @@ const path = require('path')
 const Product = require('../models/product');
 const Order = require('../models/order');
 const Author = require('../models/author');
-
+const PDFDocument = require('pdfkit')
 
 exports.getAuthors = (req, res, next) => {
   Author.find()
@@ -199,26 +199,70 @@ exports.getAbout = (req, res, next) => {
 };
 
 
+
 exports.getInvoice = (req, res, next) => {
   const orderId = req.params.orderId;
-  Order.findById(orderId)
-  .then( order => {
-    if(!order) {
-      return next(new Error('No order found.'))
-    }
-    if(order.iser.userId.toString() === req.user._id.toString()) {
-      return next(new Error('Unauthorized'));
-    }
-  })
-  .catch( err => next(err))
-  const invoiceName = 'invoice-' + orderId + '.pdf';
-  const invoicePath = path.join('data', 'invoices', invoiceName);
-  fs.readFile(invoicePath, (err, data) => {
-   if(err) {
-     return next(err);
-   } 
-   res.setHeader('Content-Type', 'application/pdf'); // 
-   res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
-   res.send(data)
-  })
-}
+  // controllo se c'è l'ordine e se l'user può accedervi è autorizzato
+  Order.findById(orderId) //recuperiamo gli ordini dal database
+    .then(order => {
+      if (!order) {
+        return next(new Error('No order found.'));
+      }
+      if (order.user.userId.toString() !== req.user._id.toString()) {
+        return next(new Error('Unauthorized'));
+      }
+      const invoiceName = 'invoice-' + orderId + '.pdf';
+      const invoicePath = path.join('data', 'invoices', invoiceName);
+
+      
+      //creiamo il pdf una volta che riceviamo il nostro invoice
+      const pdfDoc = new PDFDocument(); //crea un flusso leggibile
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader(
+        'Content-Disposition',
+        'inline; filename="' + invoiceName + '"'
+      ); 
+      pdfDoc.pipe(fs.createWriteStream(invoicePath)); //createwritestream cpossiamo chiamarlo sul file system
+      pdfDoc.pipe(res); //la risposta è un flusso scrivibile
+
+      pdfDoc.fontSize(26).text('Invoice', {
+        underline: true
+      });
+      pdfDoc.text('-----------------------');
+      let totalPrice = 0;
+
+      //possiamo accedere agli ordini 
+       order.products.forEach(prod => {
+        totalPrice += prod.quantity * prod.product.price;
+        pdfDoc
+          .fontSize(14)
+          .text(
+            prod.product.title +
+              ' - ' +
+              prod.quantity +
+              ' x ' +
+              '$' +
+              prod.product.price
+          );
+      });
+      pdfDoc.text('---');
+      pdfDoc.fontSize(20).text('Total Price: $' + totalPrice);
+
+      pdfDoc.end();
+      // fs.readFile(invoicePath, (err, data) => {
+      //   if (err) {
+      //     return next(err);
+      //   }
+      //   res.setHeader('Content-Type', 'application/pdf');
+      //   res.setHeader(
+      //     'Content-Disposition',
+      //     'inline; filename="' + invoiceName + '"'
+      //   );
+      //   res.send(data);
+      // });
+      // const file = fs.createReadStream(invoicePath);
+     
+      // file.pipe(res);
+    })
+    .catch(err => next(err));
+};
