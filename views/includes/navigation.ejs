@@ -19,8 +19,8 @@
             </li>
             
             <% if (isAuthenticated) { let total = 0; cart.map(p => { return total += p.quantity}); %>
-                <li class="main-header__item underline-cstm">
-                    <a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart"> <i class="fas fa-shopping-cart tc-base"> <%= total %> </i> </a> 
+                <li class="main-header__item ">
+                    <a  href="/cart"> <i class="<%= path === '/cart' ? 'active' : '' %> fas fa-shopping-cart tc-base"> <%= total %> </i> </a> 
                 </li>
                 <li class="main-header__item underline-cstm">
                     <a class="<%= path === '/orders' ? 'active' : '' %>" href="/orders">Orders</a>
