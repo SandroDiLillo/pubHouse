@@ -15,16 +15,15 @@
                     <% products.forEach(p => { %>
                         <li class="cart__item">
                             <div class="card__image_cart">
-                                <img src="<%= p.productId.imageUrl %>" alt="<%= p.productId.title %>">
+                                <img class="cart__image" src="<%= p.productId.imageUrl %>" alt="<%= p.productId.title %>">
                             </div>
                             <div>
-                            <h1><%= p.productId.title %></h1>
+                            <div class="cart_content">
+                            <h1>Autore: <%= p.productId.title %></h1>
                             <hr>
                             <h2>Quantity: <%= p.quantity %></h2>
-                            <div class="card__content">
-                                <h2 class="product__price">$
-                                   Price: <%= p.productId.price %>
-                                </h2>
+                            <hr>
+                            <h2 > Price: <%= p.productId.price %>$ </h2>
                                 <hr>
                                
                             </div>
@@ -33,18 +32,21 @@
                                 <input type="hidden" value="<%= p.productId._id %>" name="productId">
                                 <button class="btn danger" type="submit">Delete</button>
                             </form>
+                            
                         </div>
                         </li>
                     <% }) %>
                 </ul>
                 <hr>
                 <div class="centered">
-                    <form action="/create-order" method="POST">
+                    <!-- <form action="/create-order" method="POST">
                         <input type="hidden"  name="_csrf" value="<%= csrfToken %>">
                         <button type="submit" class="btn">Order Now!</button>
-                    </form>
+                    </form> -->
+                    <a href="./checkout.ejs">Order now</a>
+
                 </div>
-                
+            </section> 
             <% } else { %>
                 <h1>No Products in Cart!</h1>
             <% } %>

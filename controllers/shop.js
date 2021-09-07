@@ -3,7 +3,8 @@ const path = require('path')
 const Product = require('../models/product');
 const Order = require('../models/order');
 const Author = require('../models/author');
-const PDFDocument = require('pdfkit')
+const PDFDocument = require('pdfkit');
+const ITEMS_PER_PAGE = 3;
 
 exports.getAuthors = (req, res, next) => {
   Author.find()
@@ -41,13 +42,29 @@ exports.getAuthor = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
+  const page = +req.query.page || 1;
+  let totalItems;
+
   Product.find()
+  .countDocuments()
+  .then(numProducts => {
+    totalItems = numProducts;
+    return Product.find()//posso inserire un filtro solo per l'utente che l'ha creato con ({ userId: req.user._id})
+    .skip( (page - 1) * ITEMS_PER_PAGE )
+    .limit(ITEMS_PER_PAGE) 
+  }) 
     .then(products => {
       // console.log(products);
       res.render('shop/product-list', {
         prods: products,
         pageTitle: 'All Products',
         path: '/products',
+        currentPage: page,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
       });
     })
     .catch(err => {
@@ -76,12 +93,28 @@ exports.getProduct = (req, res, next) => {
 
 exports.getIndex = (req, res, next) => {
   // console.log(req.session.user.name)
+  const page = +req.query.page || 1;
+  let totalItems;
+
   Product.find()
+  .countDocuments()
+  .then(numProducts => {
+    totalItems = numProducts;
+    return Product.find()//posso inserire un filtro solo per l'utente che l'ha creato con ({ userId: req.user._id})
+    .skip( (page - 1) * ITEMS_PER_PAGE )
+    .limit(ITEMS_PER_PAGE) 
+  })  //skip fornito da mongoose
     .then(products => {
       res.render('shop/index', {
         prods: products,
         pageTitle: 'Shop',
-        path: '/'
+        path: '/',
+        currentPage: page,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
         // isAuthenticated: req.session.isLoggedIn,
         // csrfToken: req.csrfToken() //previsto da csurf
       });
@@ -94,6 +127,7 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getCart = (req, res, next) => {
+  
   req.user
     .populate('cart.items.productId')
     .execPopulate()
@@ -266,3 +300,30 @@ exports.getInvoice = (req, res, next) => {
     })
     .catch(err => next(err));
 };
+
+
+
+exports.getCheckout = (req, res, next) => {
+  req.user
+  .populate('cart.items.productId')
+  .execPopulate()
+  .then(user => {
+    let total = 0;
+    const products = user.cart.items;
+    products.forEach(p => {
+      total += p.quantity * p.productId.price
+    })
+    res.render('shop/checkout', {
+      path: '/checkout',
+      pageTitle: 'Checkout',
+      products: products,
+      totalSum: total,
+    });
+  })
+  .catch(err => {
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
+  })
+
+}

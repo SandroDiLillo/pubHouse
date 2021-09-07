@@ -80,6 +80,7 @@ app.use((req, res, next) => {
         return next(); // non conserviamo l'user, potrebbe essere stato cancellato in un database intermedio
       }
       req.user = user;
+      cart = req.user.cart.items
       next();
     })
     .catch(err => {
@@ -94,6 +95,7 @@ app.use((req, res, next) => {
   res.locals.isAdmin = req.session.isAdmin;
   res.locals.csrfToken = req.csrfToken();
   user = req.session.user;
+  
   next();
 })
 

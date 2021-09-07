@@ -4,7 +4,7 @@
     <nav class="main-header__nav">
 
         <ul class="main-header__item-list">
-            <% if (!isAdmin) { %>
+        <% if (!isAdmin) { %>
             <li class="main-header__item underline-cstm">
                 <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
             </li>
@@ -18,15 +18,15 @@
                 <a class="<%= path === '/about' ? 'active' : '' %>" href="/about">About</a>
             </li>
             
-            <% if (isAuthenticated) { %>
+            <% if (isAuthenticated) { let total = 0; cart.map(p => { return total += p.quantity}); %>
                 <li class="main-header__item underline-cstm">
-                    <a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart">Cart</a>
+                    <a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart"> <i class="fas fa-shopping-cart tc-base"> <%= total %> </i> </a> 
                 </li>
                 <li class="main-header__item underline-cstm">
                     <a class="<%= path === '/orders' ? 'active' : '' %>" href="/orders">Orders</a>
                 </li>
-                <% } %>   
-                <% } %>
+            <% } %>   
+        <% } %>
                 <% if (isAdmin) { %>
                     <li class="main-header__item underline-cstm">
                         <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Add
@@ -73,7 +73,7 @@
                             <button type="submit">Logout</button>
                         </form>
                     </li>
-                    <% } %>
+                <% } %>
         </ul>
     </nav>
 </header>

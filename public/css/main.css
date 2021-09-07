@@ -94,7 +94,6 @@ body {
   text-align: center !important;
   font-weight: bolder;
   padding-top: 70px !important;
-  width: 30rem;
   margin: auto;
   background-color: rgba(0, 0, 0, 0.578);
 }
@@ -390,6 +389,7 @@ form {
 }
 
 .card {
+  flex-basis: 23.33333%;
   box-shadow: 0 2px 8px rgba(255, 255, 255, 0.26);
   border: 1px solid transparent;
   border-radius: 15px;
@@ -515,6 +515,9 @@ footer {
   {
     margin-bottom:30px
   }
+  .card {
+    flex-basis: 35%;
+  }
 }
 @media (max-width:767px)
 {
@@ -525,6 +528,9 @@ footer {
  .copyright-text .social-icons
   {
     text-align:center
+  }
+  .card {
+    flex-basis: 50%;
   }
 }
 .social-grid {
@@ -637,6 +643,25 @@ footer {
 
 }
 
+
+.pagination {
+  text-align: center;
+  margin-top: 2rem;
+}
+.pagination a {
+  text-decoration: none;
+  color:var(--accent-color);
+  padding: 2px 6px;
+  border: 1px solid var(--sec-color);
+  margin: 0 1rem;
+  font-size: 1.5rem;
+  border-radius: 10%;
+}
+.pagination a:hover, .pagination a:active, .pagination a.active {
+  background: var(--sec-colorNav);
+  color: var(--base-color);
+ 
+}
 
 @media (max-width:767px)
 {

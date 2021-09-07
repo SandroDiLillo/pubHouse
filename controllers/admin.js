@@ -3,6 +3,7 @@ const Author = require('../models/author');
 const fileHelper = require('../util/file')
 const { validationResult } = require('express-validator/check')
 
+const ITEMS_PER_PAGE = 6;
 
 
 
@@ -183,18 +184,33 @@ exports.postEditProduct = (req, res, next) => {
 
 
 exports.getProducts = (req, res, next) => {
-  Product.find() //posso inserire un filtro solo per l'utente che l'ha creato con ({ userId: req.user._id})
-    // .select('title price -_id')
-    // .populate('userId', 'name')
-    .then(products => {
+  const page = +req.query.page || 1;
+  let totalItems;
+
+  Product.find()
+  .countDocuments()
+  .then(numProducts => {
+    totalItems = numProducts;
+    return Product.find()//posso inserire un filtro solo per l'utente che l'ha creato con ({ userId: req.user._id})
+    .skip( (page - 1) * ITEMS_PER_PAGE )
+    .limit(ITEMS_PER_PAGE) 
+  }) // // .select('title price -_id')// .populate('userId', 'name')
+  .then(products => {
       // console.log(products);
       res.render('admin/products', {
         prods: products,
         pageTitle: 'Admin Products',
         path: '/admin/products',
+        currentPage: page,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
       });
     })
     .catch(err => {
+      console.log(err)
       const error = new Error(err);
       error.httpStatusCode = 500;
       return next(error);
@@ -202,26 +218,25 @@ exports.getProducts = (req, res, next) => {
 };
 
 
-exports.postDeleteProduct = (req, res, next) => {
-  const prodId = req.body.productId;
+exports.deleteProduct = (req, res, next) => {
+  const prodId = req.params.productId;
   Product.findById(prodId)
-    .then(product => {
-      if (!product) {
-        return next(new Error('Product not found.'));
-      }
-      fileHelper.deleteFile(product.imageUrl);
-      return Product.deleteOne({ _id: prodId, userId: req.user._id });
-    })
-    .then(() => {
-      console.log('DESTROYED PRODUCT');
-      res.redirect('/admin/products');
-    })
-    .catch(err => {
-      const error = new Error(err);
-      error.httpStatusCode = 500;
-      return next(error);
-    });
+  .then(product => {
+    if (!product) {
+      return next(new Error('Product not found.'));
+    }
+    fileHelper.deleteFile(product.imageUrl);
+    return Product.deleteOne({ _id: prodId, userId: req.user._id });
+  })
+  .then(() => {
+    console.log('DESTROYED PRODUCT');
+    res.status(200).json({ message: 'Success!' });
+  })
+  .catch(err => {
+    res.status(500).json({ message: 'Deleting product failed.' });
+  });
 };
+
 
   // Product.findByIdAndRemove(prodId)
   //   .then(() => {
