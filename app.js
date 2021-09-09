@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs')
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -6,12 +7,18 @@ const mongoose = require('mongoose');
 const session = require('express-session'); //pacchetto della suite di express, ci permette di lavorare con la sessione 
 const MongoDBStore = require('connect-mongodb-session')(session) //il risultato del passaggio dell'oggeto session creato nella riga precedente e passato qui, alla funzione risultante del require di mongo connect, viene memorizzato in mongo db;
 const flash = require('connect-flash'); //npm i connect-flash
-const multer = require('multer')
+const multer = require('multer');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan')
+const https = require('https')
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
-const MONGODB_URI = 'mongodb://root:root@cluster0sandro-shard-00-00.nhkls.mongodb.net:27017,cluster0sandro-shard-00-01.nhkls.mongodb.net:27017,cluster0sandro-shard-00-02.nhkls.mongodb.net:27017/shop?ssl=true&replicaSet=atlas-i3inac-shard-0&authSource=admin&retryWrites=true&w=majority';
+const MONGODB_URI = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0sandro-shard-00-00.nhkls.mongodb.net:27017,cluster0sandro-shard-00-01.nhkls.mongodb.net:27017,cluster0sandro-shard-00-02.nhkls.mongodb.net:27017/${process.env.MONGO_DATABASE}?ssl=true&replicaSet=atlas-i3inac-shard-0&authSource=admin&retryWrites=true&w=majority`;
 const csrf = require('csurf')
+
+const favicon = require('serve-favicon')
 
 const app = express();
 const store = new MongoDBStore({
@@ -20,6 +27,9 @@ const store = new MongoDBStore({
   //potrei anche inserire una data di scadenza in modo tale che mongo db pulisca a un certo punto i dati raccolti 
 });
 const csrfProtection = csrf();
+
+// const privateKey = fs.readFileSync('server.key');
+// const certificate = fs.readFileSync('server.cert');
 
 const fileStorage = multer.diskStorage({ //dove e come salviamo i file 
   destination: (req, file, cb) => {
@@ -49,6 +59,19 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
 
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, 'access.log'),
+   { flags: 'a'}
+   );
+
+app.use(helmet(
+  {
+    contentSecurityPolicy: false,
+  }
+)); //setta header protet
+app.use(compression()); //comprime css e js
+app.use(morgan('combined', { stream: accessLogStream })); //login data
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
@@ -58,7 +81,7 @@ app.use(
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'images'))); //servire staticamente i mostri file, dicendo che se c'è un path con /images deve prenderlo da... 
-
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 app.use(session({
    secret: 'dovrebbe essere una lunga stringa', 
@@ -123,7 +146,8 @@ mongoose
     MONGODB_URI
   )
   .then(result => {
-    app.listen(3000);
+    // https.createServer({key: privateKey, cert: certificate} , app).listen(process.env.PORT || 3000);
+    app.listen(process.env.PORT || 3000);
   })
   .catch(err => {
     console.log(err);

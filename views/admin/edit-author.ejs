@@ -19,17 +19,20 @@
                             <div class="form-control">
                                 <label for="name">Full name</label>
                                 <input 
-                                class=""
+                                class="<%= validationErrors.find(e => e.param === 'name') ? 'invalid' : '' %>"
                                 type="text" 
                                 name="name" 
                                 id="name"
                                 value="<% if (editing || hasError) { %><%= author.name %><% } %>">
                             </div>
                             <div class="form-control">
-                                <label for="imageUrl">Image URL</label>
-                                <input type="text" name="imageUrl" id="imageUrl"
-                                    value="<% if (editing || hasError) { %><%= author.imageUrl %><% } %>">
-                            </div>
+                                <label for="image">Image URL</label>
+                                <input 
+                                type="file" 
+                                name="image" 
+                                id="image"
+                                >
+                            </div> 
                             <!-- <div class="form-control">
                                 <label for="image">Image URL</label>
                                 <input 

@@ -76,9 +76,6 @@ router.post('/add-author',
             .isString()
             .isLength({ min: 3 })
             .withMessage('Please enter a valid Author'),
-        body('imageUrl')
-            .isURL()
-            .withMessage('Please enter a url for image'),
         body('description')
             .isLength({ min: 2 })
             .withMessage('Please enter a description')
@@ -96,9 +93,6 @@ router.post('/edit-author',
             .isString()
             .isLength({ min: 3 })
             .withMessage('Please enter a valid Author'),
-        body('imageUrl')
-            .isURL()
-            .withMessage('Please enter a url for image'),
         body('description')
             .isLength({ min: 2 })
             .withMessage('Please enter a description')

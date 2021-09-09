@@ -4,13 +4,13 @@
 
     <body>
         <%- include('../includes/navigation.ejs') %>
-        <main>
+        <main class="grid">
             <section class="m-top-1">
                 <h1 class="category__title">
                     Checkout
                 </h1>
                 <hr>
-                <ul class="cart__item-list">
+                <ul class="cart__item-list m-top-1">
                         <% products.forEach(p => { %>
                             <li class="cart__item">
                                 <h1><%= p.productId.title %></h1>
@@ -19,14 +19,14 @@
                         <% }) %>
                 </ul>
                     <div class="centered">
-                        <h2>Total: <%= totalSum %></h2>
+                        <h2>Total: <%= totalSum %> $</h2>
                     </div>
                     <div class="centered">
                         <button id="order-btn" class="btn">ORDER</button>
          
                     <script src="https://js.stripe.com/v3/"></script>
                     <script>
-                        var stripe = Stripe('');
+                        var stripe = Stripe(process.env.STRIPE_KEY2);
                         var orderBtn = document.getElementById('order-btn');
                         orderBtn.addEventListener('click', () => {
                             stripe.redirectToCheckout({ //utilizziamo l'oggetto creato stripe per chiamare il reindirizzamento 

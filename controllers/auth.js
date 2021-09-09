@@ -6,6 +6,7 @@ const nodemailer = require('nodemailer');
 const sendGridTransport = require('nodemailer-sendgrid-transport');
 const { validationResult } = require('express-validator/check')
 
+const admin = process.env.AD_EMAIL
 
 const User = require('../models/user');
 
@@ -13,14 +14,14 @@ const transporter = nodemailer.createTransport(sendGridTransport(
   {
     auth: {
 
-      api_key: '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'
-    }
+      api_key: process.env.SEND_GRID_API
+        }
   }
 ))
 
 exports.getLogin = (req, res, next) => {
   // const isLoggedIn = req.get('Cookie').split(';')[0].trim().split('=')[1];
-
+  console.log()
   let message = req.flash('error');
   console.log(message)
   if (message.length > 0) {

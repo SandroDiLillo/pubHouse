@@ -272,26 +272,39 @@ exports.getAddAuthor = (req, res, next) => {
 
 exports.postAddAuthor = (req, res, next) => {
   const name = req.body.name;
-  const imageUrl = req.body.imageUrl;
+  const image = req.file;
   const description = req.body.description;
-
+  if (!image) {
+    return res.status(422).render('admin/edit-author', {
+      pageTitle: 'Add Author',
+      path: '/admin/add-author',
+      editing: false,
+      hasError: true,
+      product: {
+        name: name,
+        description: description
+      },
+      errorMessage: 'Attached file is not an image.',
+      validationErrors: []
+    });
+  }
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).render('admin/edit-author', {
-      pageTitle: 'Edit Author',
-      path: '/admin/edit-author',
+      pageTitle: 'Add Author',
+      path: '/admin/add-author',
       editing: false,
       hasError: true,
       errorMessage: errors.array()[0].msg,
       author: {
         name: name,
         description: description,
-        imageUrl: imageUrl,
+        // imageUrl: imageUrl,
       },
       validationErrors: errors.array()
     })
   }
-
+  const imageUrl = image.path;
   const author = new Author({
     name: name,
     description: description,
@@ -348,8 +361,10 @@ exports.getEditAuthor = (req, res, next) => {
 exports.postEditAuthor = (req, res, next) => {
   const authId = req.body.authorId;
   const updatedName = req.body.name;
-  const updatedImageUrl = req.body.imageUrl;
+  // const updatedImageUrl = req.body.imageUrl;
   const updatedDesc = req.body.description;
+  const image = req.file;  
+
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -362,7 +377,7 @@ exports.postEditAuthor = (req, res, next) => {
       author: {
         name: updatedName,
         description: updatedDesc,
-        imageUrl: updatedImageUrl,
+      
         _id: authId
       },
       validationErrors: errors.array()
@@ -371,16 +386,19 @@ exports.postEditAuthor = (req, res, next) => {
 
   Author.findById(authId)
     .then(author => {
+      if (image) { //solo se inseriamo l'immagine la sovrascriverà
+        fileHelper.deleteFile(author.imageUrl);
+        author.imageUrl = image.path;
+      }
       author.name = updatedName;
       author.description = updatedDesc;
       author.imageUrl = updatedImageUrl;
-      return author.save();
-    })
-    .then(result => {
-      console.log('UPDATED AUTHOR!');
-      res.redirect('/admin/authors');
-    })
-    .catch(err => {
+      return author.save()
+      .then(result => {
+        console.log('UPDATED AUTHOR!');
+        res.redirect('/admin/authors');
+      });
+    }).catch(err => {
       const error = new Error(err);
       error.httpStatusCode = 500;
       return next(error);

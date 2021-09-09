@@ -218,11 +218,12 @@ form {
   padding: 0;
 }
 
-.main-header__item a {
+.main-header__item a, .main-header__item p {
   text-decoration: none;
   color: var(--sec-color);
   font-size: 19px
 }
+
 
 .main-header__item a:hover,
 .main-header__item a:active,
@@ -242,6 +243,8 @@ form {
   font-size: 19px;
   font-family: 'Gentium Book Basic', serif;
 }
+
+
 
 .main-header__item button:hover,
 .main-header__item button:active,
@@ -283,6 +286,21 @@ form {
 }
 
 
+.counter {
+  background-color:black;
+  border: var(--main-colorNav) solid 2px ;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 12px;
+  position: absolute;
+  right: auto;
+  font-size: 13px;
+  color: var(--base-color);
+  
+}
+
+
+
 .mobile-nav {
   width: 30rem;
   height: 100vh;
@@ -317,6 +335,12 @@ form {
 }
 
 .mobile-nav__item a {
+  text-decoration: none;
+  color: var(--base-color);
+  font-size: 1.3rem;
+  padding: 0.3rem 0.9rem;
+}
+.mobile-nav__item p {
   text-decoration: none;
   color: var(--base-color);
   font-size: 1.3rem;
@@ -367,6 +391,8 @@ form {
   flex-wrap: wrap;
   justify-content: center;
   align-items: stretch;
+  min-height: 82vh;
+  
 }
 .category {
   display: flex;
@@ -461,7 +487,17 @@ form {
 
 .btn.danger:hover,
 .btn.danger:active {
-  background: red;
+  background: rgb(24, 187, 157);
+  color: white;
+}
+.btn.info {
+  color: rgb(65, 65, 182);
+  border-color: rgb(24, 187, 157);
+}
+
+.btn.info:hover,
+.btn.info:active {
+  background: rgb(24, 187, 157);
   color: white;
 }
 

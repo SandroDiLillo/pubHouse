@@ -9,7 +9,7 @@
                 <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
             </li>
             <li class="main-header__item underline-cstm">
-                <a class="<%= path === '/products' ? 'active' : '' %>" href="/products">Book store</a>
+                <a class="<%= path === '/products' ? 'active' : '' %>" href="/products">Store</a>
             </li>
             <li class="main-header__item underline-cstm">
                 <a class="<%= path === '/authors' ? 'active' : '' %>" href="/authors">Authors</a>
@@ -20,7 +20,7 @@
             
             <% if (isAuthenticated) { let total = 0; cart.map(p => { return total += p.quantity}); %>
                 <li class="main-header__item ">
-                    <a  href="/cart"> <i class="<%= path === '/cart' ? 'active' : '' %> fas fa-shopping-cart tc-base"> <%= total %> </i> </a> 
+                    <a  href="/cart"> <i class="<%= path === '/cart' ? 'active' : '' %> fas fa-shopping-cart tc-base">  </i> <span class="counter"> <%= total %>   </span>  </a> 
                 </li>
                 <li class="main-header__item underline-cstm">
                     <a class="<%= path === '/orders' ? 'active' : '' %>" href="/orders">Orders</a>
@@ -63,7 +63,7 @@
 
                     <li class="main-header__item">
 
-                        <a href="">Welcome <%= user.name %></a>
+                        <a >Hi, <%= user.name %></a>
 
                     </li>
 

@@ -6,7 +6,7 @@ const Author = require('../models/author');
 const PDFDocument = require('pdfkit');
 const ITEMS_PER_PAGE = 3;
 
-const stripe = require('stripe')('')
+const stripe = require('stripe')(process.env.STRIPE_KEY)
 
 exports.getAuthors = (req, res, next) => {
   Author.find()
