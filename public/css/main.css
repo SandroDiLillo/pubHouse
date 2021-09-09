@@ -397,6 +397,10 @@ form {
   min-height: 82vh;
   
 }
+.min-height {
+  min-height: 82vh;
+}
+
 .category {
   display: flex;
   justify-content: center;
