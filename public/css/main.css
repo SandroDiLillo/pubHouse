@@ -349,7 +349,10 @@ form {
 
 .mobile-nav__item a:active,
 .mobile-nav__item a:hover,
-.mobile-nav__item a.active {
+.mobile-nav__item a.active 
+.mobile-nav__item button:active,
+.mobile-nav__item button:hover,
+.mobile-nav__item button.active {
   background: var(--accent-color);
   color: var(--base-color);
   border-radius: 3px;
@@ -496,7 +499,7 @@ form {
 
 .btn.danger:hover,
 .btn.danger:active {
-  background: rgb(24, 187, 157);
+  background: red;
   color: white;
 }
 .btn.info {
@@ -510,6 +513,19 @@ form {
   color: white;
 }
 
+.unstyled {
+  text-decoration: none;
+  color: var(--base-color);
+  font-size: 1.3rem;
+  padding: 0.3rem 0.9rem;
+  background: none;
+  font-family: 'Gentium Book Basic', serif;
+	border: none;
+	/* padding: 0; */
+	
+	cursor: pointer;
+	outline: inherit;
+}
 
 footer {
   height: 70px;

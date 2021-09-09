@@ -8,7 +8,7 @@
 
             <main class="grid">
                 <% if (auths.length > 0) { %>
-                    <section>
+                    <section class="grid">
                         <h1 class=" category__title_admin m-top-1">
                             Admin authors list
                         </h1>
@@ -18,7 +18,7 @@
                        
                                 <% for (let author of auths) { %>
                                    
-                                        <li>
+                                        <li class="author__item">
                                             <div class="card__author">
                                               <img src="/<%= author.imageUrl %>" class="card__image" alt="" />
                                               <div class="card__overlay">

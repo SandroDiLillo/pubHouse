@@ -83,7 +83,7 @@
         <ul class="mobile-nav__item-list">
             <li class="mobile-nav__item">
 
-                <a href="">Welcome <%= user.name %></a>
+                <p >Hi, <%= user.name %></p>
 
             </li>
         </ul>
@@ -152,7 +152,7 @@
                             <li class="mobile-nav__item">
                                 <form action="/logout" method="post">
                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                    <button type="submit">Logout</button>
+                                    <button class="unstyled" type="submit">Logout</button>
                                 </form>
                             </li>
                             <% } %>

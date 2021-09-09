@@ -5,14 +5,14 @@
     <body>
         <%- include('../includes/navigation.ejs') %>
         <main class="grid">
-            <section class="m-top-1">
+            <section class=" cards m-top-1">
                 <h1 class="category__title">
                     Cart
                 </h1>
                 <hr>
             <% if (products.length > 0) { %>
                 <ul class="cart__item-list">
-                    <% products.forEach(p => { %>
+                    <% products.forEach(p => {  %>
                         <li class="cart__item">
                             <div class="card__image_cart">
                                 <img class="cart__image" src="<%= p.productId.imageUrl %>" alt="<%= p.productId.title %>">

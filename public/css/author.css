@@ -1,6 +1,6 @@
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 2fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
     gap: 2rem;
     justify-content: center;
     margin: 4rem 5vw;
@@ -147,6 +147,6 @@
     position: relative;
     display: block;
     height: 90%;  
-   
+    
   }
 }
