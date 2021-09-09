@@ -417,6 +417,15 @@ form {
   box-shadow: inset 2px 2px 5px #b8b9be,inset -3px -3px 7px #fff!important;
 }
 
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 2fr));
+  gap: 2rem;
+  margin: 4rem 5vw;
+  padding: 0;
+  list-style-type: none;
+}
+
 .card {
   flex-basis: 23.33333%;
   box-shadow: 0 2px 8px rgba(255, 255, 255, 0.26);
@@ -555,7 +564,7 @@ footer {
     margin-bottom:30px
   }
   .card {
-    flex-basis: 35%;
+    flex-basis: 40%;
   }
 }
 @media (max-width:767px)
@@ -569,7 +578,7 @@ footer {
     text-align:center
   }
   .card {
-    flex-basis: 50%;
+    flex-basis: 70%;
   }
 }
 .social-grid {

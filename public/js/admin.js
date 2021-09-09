@@ -23,3 +23,6 @@ const deleteProduct = (btn) => {
             console.log(err)
         });
 }
+
+
+

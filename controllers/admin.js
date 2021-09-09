@@ -392,7 +392,7 @@ exports.postEditAuthor = (req, res, next) => {
       }
       author.name = updatedName;
       author.description = updatedDesc;
-      author.imageUrl = updatedImageUrl;
+      // author.imageUrl = updatedImageUrl;
       return author.save()
       .then(result => {
         console.log('UPDATED AUTHOR!');
