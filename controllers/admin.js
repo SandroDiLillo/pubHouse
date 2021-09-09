@@ -299,7 +299,7 @@ exports.postAddAuthor = (req, res, next) => {
       author: {
         name: name,
         description: description,
-        // imageUrl: imageUrl,
+        imageUrl: imageUrl,
       },
       validationErrors: errors.array()
     })
