@@ -410,7 +410,7 @@ exports.getAuthors = (req, res, next) => {
     // .select('title price -_id')
     // .populate('userId', 'name')
     .then(authors => {
-      console.log(authors);
+      // console.log(authors);
       res.render('admin/authors', {
         auths: authors,
         pageTitle: 'Admin Authors',

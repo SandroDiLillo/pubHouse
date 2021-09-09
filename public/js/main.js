@@ -54,8 +54,8 @@ function isInViewport(el) {
 function startup() {
   
   if (isTouchDevice() === true) {
-    console.log(isTouchDevice())
-    console.log(cardAuthors)
+    // console.log(isTouchDevice())
+    // console.log(cardAuthors)
     // console.log(cardOverlay)
     // console.log(cardHeader)
     document.addEventListener("scroll", hoverize)
