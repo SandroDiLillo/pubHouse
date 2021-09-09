@@ -34,52 +34,53 @@ menuToggle.addEventListener('click', menuToggleClickHandler);
 
 // }
 
-// const cardAuthors = document.querySelectorAll('card__author');
+const cardAuthors = document.querySelectorAll('.card__author');
 
 
 
-// function isInViewport(el) {
-//     const rect = el.getBoundingClientRect();
-//     return (
-//         rect.top >= 0 &&
-//         rect.left >= 0 &&
-//         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-//         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+function isInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
 
-//     );
-// }
+    );
+}
 
 
 
-// function startup() {
+function startup() {
   
-//   if (isTouchDevice() === true) {
-//     console.log(isTouchDevice())
-//     console.log(cardAuthors)
-//     // console.log(cardOverlay)
-//     // console.log(cardHeader)
-//     document.addEventListener("scroll", hoverize)
-//   }
-// }
-// document.addEventListener("DOMContentLoaded", startup);
-// const hoverize = () => {
-//   cardAuthors.forEach = function(card) {
+  if (isTouchDevice() === true) {
+    console.log(isTouchDevice())
+    console.log(cardAuthors)
+    // console.log(cardOverlay)
+    // console.log(cardHeader)
+    document.addEventListener("scroll", hoverize)
+  }
+}
+document.addEventListener("DOMContentLoaded", startup);
+const hoverize = () => {
+  cardAuthors.forEach(card => {
    
-//     let cardOverlay = document.querySelector('.card__overlay')
-//     let cardHeader = document.querySelector('.card__header')
-//     if(isInViewport(card)) {
-//       cardHeader.style.transform = "translateY(0)" 
-//       cardOverlay.style.transform = "translateY(0)"
+    let cardOverlay = card.parentNode.querySelector('.card__overlay')
+    let cardHeader = card.parentNode.querySelector('.card__header')
+    // console.log(cardHeader)
+    if(isInViewport(card)) {
+      cardHeader.style.transform = "translateY(0)" 
+      cardOverlay.style.transform = "translateY(0)"
       
-//     }  else {
-//       cardHeader.style.transform = "translateY(-100%)" 
-//       cardOverlay.style.transform = "translateY(100%)"
-//     }
+    }  else {
+      cardHeader.style.transform = "translateY(-100%)" 
+      cardOverlay.style.transform = "translateY(100%)"
+    }
   
-//   }
+  })
    
  
-// }
+}
 
 // function handleStart(evt) {
 //   evt.preventDefault();
