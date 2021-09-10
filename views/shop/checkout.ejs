@@ -26,7 +26,8 @@
          
                     <script src="https://js.stripe.com/v3/"></script>
                     <script>
-                        var stripe = Stripe(process.env.STRIPE_KEY2);
+                        var stripeKey2 = '<%= process.env.STRIPE_KEY2 %>';
+                        var stripe = Stripe(stripeKey2);
                         var orderBtn = document.getElementById('order-btn');
                         orderBtn.addEventListener('click', () => {
                             stripe.redirectToCheckout({ //utilizziamo l'oggetto creato stripe per chiamare il reindirizzamento 
