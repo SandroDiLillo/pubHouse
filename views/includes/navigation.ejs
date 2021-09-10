@@ -73,9 +73,13 @@
                             <button type="submit">Logout</button>
                         </form>
                     </li>
-                <% } %>
+    <% } %>
+              
         </ul>
     </nav>
+    <!-- <% if (path === '/products') { %>
+    <%- include('../includes/search.ejs') %>
+    <% } %> -->
 </header>
 
 <nav class="mobile-nav">
@@ -83,12 +87,12 @@
         <ul class="mobile-nav__item-list">
             <li class="mobile-nav__item">
 
-                <p >Hi, <%= user.name %></p>
+                <p>Hi, <%= user.name %></p>
 
             </li>
-        </ul>
+        
         <% } %>
-        <ul class="mobile-nav__item-list">
+           
                     <% if (!isAdmin) { %>
                     <li class="mobile-nav__item">
                         <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
@@ -139,22 +143,23 @@
                                 </li>
                                 <% } %>
                                  
+                               
+                                    <% if (!isAuthenticated) { %>
+                                        <li class="mobile-nav__item">
+                                            <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a>
+                                        </li>
+                                        <li class="mobile-nav__item">
+                                            <a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup">Signup</a>
+                                        </li>
+                                        <% } else { %>
+                                            <li class="mobile-nav__item">
+                                                <form action="/logout" method="post">
+                                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                    <button class="unstyled" type="submit">Logout</button>
+                                                </form>
+                                            </li>
+                                            <% } %>
+                                
                 </ul>
-                <ul class="m-t mobile-nav__item-list">
-                    <% if (!isAuthenticated) { %>
-                        <li class="mobile-nav__item">
-                            <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a>
-                        </li>
-                        <li class="mobile-nav__item">
-                            <a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup">Signup</a>
-                        </li>
-                        <% } else { %>
-                            <li class="mobile-nav__item">
-                                <form action="/logout" method="post">
-                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                    <button class="unstyled" type="submit">Logout</button>
-                                </form>
-                            </li>
-                            <% } %>
-                </ul>
+                
 </nav>

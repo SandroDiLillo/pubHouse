@@ -82,16 +82,9 @@ const hoverize = () => {
  
 }
 
-// function handleStart(evt) {
-//   evt.preventDefault();
-//   evt.setAttribute('href', "#")
-//   console.log("touchstart.");
-// }
 
-// const setDblTouch = () => {
+// 
 
-// }
 
-// cardAuthor.addEventListener()
 
 

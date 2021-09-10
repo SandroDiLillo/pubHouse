@@ -4,15 +4,15 @@
 
     <body>
         <%- include('../includes/navigation.ejs') %>
-
-            <main >
-                <% if (prods.length > 0) { %>
-                    <section>
+        
+        <main >
+            <% if (prods.length > 0) { %>
+                <section>
                         <h1 class=" category__title m-top-1">
                             Book store
                         </h1>
                         <hr>
-                        <div class="grid">
+                        <ul class="grid " id="products">
                        
                         <% for (let product of prods) { %>
                             <article class="card product-item">
@@ -47,4 +47,5 @@
                         <h1>No Products Found!</h1>
                         <% } %>
             </main>
+            
             <%- include('../includes/end.ejs') %>
